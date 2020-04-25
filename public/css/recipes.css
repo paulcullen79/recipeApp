@@ -1,0 +1,262 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    color: rgb(63, 62, 62);
+    line-height: 1.5em;
+    font-size: 1.1em;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas: 
+    "header         header      header"
+    "info-bar       info-bar    info-bar"
+    "image          summary     summary"
+    "ingredients    instructions instructions"
+    ".              navbar      .";
+    gap: 20px;
+    
+}
+
+.header {
+    align-self: center;
+    grid-area: header;
+}
+
+/* .header h1 {
+    color:rgb(81, 197, 81);
+} */
+
+
+.info-bar {
+    grid-area: info-bar;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "timeServes infoTypes";
+    
+}
+
+.time-serves {
+    grid-area: timeServes;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    align-self: start;
+}
+.info-types {
+    grid-area: infoTypes;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-self: end;
+}
+
+li.fa-stopwatch {
+    color:rgb(81, 197, 81);
+    margin-right: 20px;
+    padding-top: 10px;
+    
+}
+li.fa-stopwatch::before {
+    margin-right: 10px;
+}
+li.fa-utensils {
+    color:rgb(81, 197, 81);
+    margin-right: 20px;
+    padding-top: 10px;
+}
+li.fa-utensils::before {
+    margin-right: 10px;
+}
+
+li.fa-check-circle {
+    margin-left: 20px;
+    padding-top: 10px;
+    color: rgb(81, 197, 81);
+}
+
+.image {
+    grid-area: image;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.summary {
+    grid-area: summary;
+    line-height: 1.5em;
+    text-align: justify;
+   
+}
+
+.instructions {
+    grid-area: instructions;
+    text-align: justify;
+    
+}
+
+.ingredients {
+    grid-area: ingredients;
+    width: 100%;
+
+}
+
+.ingredients-item {
+    list-style: none;
+   
+
+}
+
+li.ingredients-item:nth-child(odd) {
+    background-color: rgb(233, 233, 233);
+}
+
+.navbar {
+    grid-area: navbar;
+    display: flex;
+    justify-content: space-around;
+}
+
+#backBtn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    color: rgb(63, 62, 62);
+    border: 1px solid rgb(63, 62, 62);;
+    background-color: rgb(81, 197, 81);
+    border-radius: 2px;
+    /* margin: 1rem 2rem; */
+   
+}
+
+#saveBtn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    color: rgb(63, 62, 62);
+    border: 1px solid rgb(63, 62, 62);;
+    background-color: rgb(81, 197, 81);
+    border-radius: 2px;
+    /* margin: 1rem 2rem; */
+   
+}
+
+
+
+/******************************************************/
+
+
+@media only screen and (max-width: 768px) {
+    .container{
+        width: 100%;
+        margin: auto;
+        padding: 30px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto auto auto auto;
+        grid-template-areas: 
+        "header"
+        "info-bar"
+        "image"
+        "summary"
+        "instructions"
+        "ingredients"
+        "navbar";
+        gap: 20px;
+        
+    }
+    
+    .header {
+        grid-area: header;
+        align-content: stretch;
+        
+    }
+    
+    .info-bar {
+        grid-area: info-bar;
+        align-self: center;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: 
+        "timeServes"
+        "infoTypes";
+        
+    }
+
+    .info-types {
+        grid-area: infoTypes;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        justify-self: start;
+    }
+
+    li.fa-check-circle {
+        margin-left: 0px;
+        margin-right: 20px;
+        color: rgb(81, 197, 81);
+    }
+}
+
+
+
+@media only screen and (max-width: 768px) {
+
+
+}
+
+@media only screen and (max-width: 992px) {
+
+
+}
+
+/* @media only screen and (max-width: 1200px) {
+    .container{
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas: 
+        "header header header"
+        "info-bar info-bar info-bar"
+        "image summary summary"
+        "ingredients instructions instructions";
+        gap: 20px;
+        
+    }
+    
+    .header {
+        align-self: center;
+        grid-area: header;
+    }
+    
+    .info-bar {
+        grid-area: info-bar;
+        align-self: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "timeServes infoTypes";
+        
+    }
+
+
+
+} */
+
+/* .col- (extra small devices - screen width less than 576px)
+.col-sm- (small devices - screen width equal to or greater than 576px)
+.col-md- (medium devices - screen width equal to or greater than 768px)
+.col-lg- (large devices - screen width equal to or greater than 992px)
+.col-xl- (xlarge devices - screen width equal to or greater than 1200px) */
