@@ -111,7 +111,7 @@ const renderRecipesList = (data) => {
             // Save selected recipe id to sessionStorage
             sessionStorage.setItem('currentRecipeId', id)
             // go to recipe details page
-            window.location.href = `http://localhost:3000/recipe.html?${id}`
+            window.location.href = `/recipe.html?${id}`
             
         })
 
