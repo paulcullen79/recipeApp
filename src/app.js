@@ -1,6 +1,5 @@
 const path = require('path')
 const express = require('express')
-const hbs = require('hbs')
 const { getRandomRecipes, getRecipesList, getRecipeDetails } = require('./utils/spoonacular')
 
 
@@ -11,14 +10,8 @@ const port = process.env.PORT || 3000
 // define paths for express config
 const publicDirectoryPath = (path.join(__dirname, '../public'))
 
-// // setup handlebars engine and views location
-// app.set('view engine', 'hbs')
-// app.set('views', viewsPath)
-// hbs.registerPartials(partialsPath)
-
 // setup static directory to serve
 app.use(express.static(publicDirectoryPath))
-
 
 // root - get random recipes
 app.get('/randomRecipes', (req, res) => {
