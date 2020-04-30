@@ -2,15 +2,31 @@ const request = require('request')
 
 const apiKey = 'apiKey=b30065a06ee34a48a22161c14d14e376'
 
-const getRecipesList = (search, callback) => {
-    const url = `https://api.spoonacular.com/recipes/search?query=${search}&number=12&${apiKey}`
-
-    request({ url, json: true }, (error, res, body) => {  
+const getRandomRecipes = (callback) => {
+    const url = `https://api.spoonacular.com/recipes/random?number=12&${apiKey}`
+    request({ url, json: true }, (error, res, body) => { 
         if (error) {
             callback('Something went wrong!', undefined)
-        } else if (body.results.length === 0) {
+        } 
+        else if (body.recipes.length === 0) {
             callback('Invalid search term. Try another search', undefined)
-        } else {
+        } 
+        else {
+            callback(undefined, body)
+        }
+    })
+}
+
+const getRecipesList = (search, callback) => {
+    const url = `https://api.spoonacular.com/recipes/search?query=${search}&number=12&${apiKey}`
+    request({ url, json: true }, (error, res, body) => { 
+        if (error) {
+            callback('Something went wrong!', undefined)
+        } 
+        else if (body.results.length === 0) {
+            callback('Invalid search term. Try another search', undefined)
+        } 
+        else {
             callback(undefined, body)
         }
     })
@@ -29,5 +45,5 @@ const getRecipeDetails = (id, callback) => {
     })
 }
 
-module.exports = { getRecipesList, getRecipeDetails }
+module.exports = { getRandomRecipes, getRecipesList, getRecipeDetails }
 

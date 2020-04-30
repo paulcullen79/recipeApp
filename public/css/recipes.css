@@ -1,9 +1,11 @@
 * {
     margin: 0px;
     padding: 0px;
+    
 }
 body {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
     box-sizing: border-box;
     background-color: whitesmoke;
     color: rgb(63, 62, 62);
@@ -33,9 +35,9 @@ body {
     grid-area: header;
 }
 
-/* .header h1 {
-    color:rgb(81, 197, 81);
-} */
+.header h1 {
+    line-height: 1.3em;
+}
 
 
 .info-bar {
@@ -103,6 +105,10 @@ li.fa-check-circle {
     grid-area: instructions;
     text-align: justify;
     
+}
+
+.instructions-item {
+    margin-left: 2rem;
 }
 
 .ingredients {
@@ -203,6 +209,19 @@ li.ingredients-item:nth-child(odd) {
         margin-left: 0px;
         margin-right: 20px;
         color: rgb(81, 197, 81);
+    }
+
+    .navbar {
+        grid-area: navbar;
+        display: flex;
+        justify-content: center;
+    }
+
+    #backBtn {
+        margin-right: 1rem;
+    }
+    #saveBtn {
+        margin-left: 1rem;
     }
 }
 

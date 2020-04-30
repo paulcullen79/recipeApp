@@ -12,6 +12,7 @@ html {
 }
 body {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
     box-sizing: border-box;
     background-color: whitesmoke;
     color: rgb(63, 62, 62);
@@ -19,6 +20,7 @@ body {
     font-size: 1.1rem;
    
     background-image: url(../img/micheile-henderson-nyZOvAuVWbA-unsplash.jpg);
+   
 }
 
 
@@ -38,6 +40,22 @@ body {
    
 }
 
+.welcome {
+    font-size: 3em;
+    line-height: 3.6rem;
+    color: #242424;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+span {
+    display: inline-block;
+}
+
+.headline {
+    color: #242424;
+}
+
 .form {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -51,6 +69,10 @@ body {
     padding: 0.5rem;
     border-radius: 5px;
     margin-right: 1.5rem;
+    box-shadow: 2px 2px #8d8d8d;
+}
+.search:focus {
+    outline: none;
 }
 
 .form button {
@@ -58,6 +80,23 @@ body {
     background-color:rgb(81, 197, 81);
     padding: 0.5rem;
     border-radius: 5px;
+    box-shadow: 2px 2px #8d8d8d;
+    cursor: pointer;
+}
+.form button:hover {
+    background-color: #62e266;
+}
+.form button:active {
+    background-color: #62e266;
+
+    transform: translateY(4px);
+}
+.form button:focus {
+    outline: none;
+}
+
+.message {
+    height: 20px;
 }
 
 container-list {

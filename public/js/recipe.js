@@ -3,7 +3,7 @@ const titleEl = document.querySelector('.header h1')
 const summaryHeadEl = document.querySelector('.summary h3')
 const summaryEl = document.querySelector('.summary p')
 const instructHeadEl = document.querySelector('.instructions h3')
-const instructionsEl = document.querySelector('.instructions p')
+const instructionsListEl = document.querySelector('.instructions ol')
 const ingredientsHeadEl = document.querySelector('.ingredients h3')
 const ingredientsListEl = document.querySelector('.ingredients ul')
 const cookTimeEl = document.querySelector('li.fa-stopwatch')
@@ -34,22 +34,43 @@ const renderRecipeDetails = (data) => {
     cookTimeEl.textContent = `${data.readyInMinutes} mins`
     servingsEl.textContent = `Serves ${data.servings}`
 
-    summaryHeadEl.textContent = 'Summary'
-    const summary = data.summary.split('<a')
-    summaryEl.innerHTML = summary[0]
+    if (data.summary) {
+        summaryHeadEl.textContent = 'Summary'
+        const strippedString = data.summary.replace(/(<([^>]+)>)/ig,"");
+        // console.log(strippedString)
+        // const summary = data.summary.split('\n')
+        summaryEl.textContent = strippedString
+    }
+    
+    if (data.instructions) {
+        instructHeadEl.textContent = 'Instructions'
+        // instructionsListEl.textContent = data.instructions.replace('Instructions', '')
+        data.analyzedInstructions[0].steps.forEach((element) => {
+            const instructionsItemEl = document.createElement('li')
+            instructionsItemEl.setAttribute('class', 'instructions-item')
+            instructionsItemEl.textContent = element.step
+            instructionsListEl.appendChild(instructionsItemEl)
+        })
+    } else {instructHeadEl.textContent = 'Sorry, no instructions available.'
 
-    instructHeadEl.textContent = 'Instructions'
-    instructionsEl.textContent = data.instructions.replace('Instructions', '')
-
-
+    }
+    
     // render ingredients list
-    ingredientsHeadEl.textContent = 'Ingredients'
-    data.extendedIngredients.forEach((element) => {
-        const ingredientsItemEl = document.createElement('li')
-        ingredientsItemEl.setAttribute('class', 'ingredients-item')
-        ingredientsItemEl.textContent = element.name
-        ingredientsListEl.appendChild(ingredientsItemEl)
-    })
+    if (data.extendedIngredients) {
+        ingredientsHeadEl.textContent = 'Ingredients'
+        data.extendedIngredients.forEach((element) => {
+            const ingredientsItemEl = document.createElement('li')
+            ingredientsItemEl.setAttribute('class', 'ingredients-item')
+            let metaInfo = ''
+            if (element.metaInformation) {
+                let revMeta = element.metaInformation.reverse()
+                metaInfo = revMeta.join()  
+            }
+            ingredientsItemEl.textContent = `${element.originalName} (${element.measures.us.amount} ${element.measures.us.unitShort})`
+            ingredientsListEl.appendChild(ingredientsItemEl)
+        })
+    }
+    
 
     // render recipe info icons
     // const infoTypes = ['vegetarian', 'vegan', 'glutenFree', 'dairyFree', 'veryHealthy']

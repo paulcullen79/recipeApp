@@ -1,7 +1,7 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const { getRecipesList, getRecipeDetails } = require('./utils/spoonacular')
+const { getRandomRecipes, getRecipesList, getRecipeDetails } = require('./utils/spoonacular')
 
 
 
@@ -10,24 +10,29 @@ const port = process.env.PORT || 3000
 
 // define paths for express config
 const publicDirectoryPath = (path.join(__dirname, '../public'))
-const viewsPath = path.join(__dirname, '../templates/views')
-const partialsPath = path.join(__dirname, '../templates/partials')
 
-// setup handlebars engine and views location
-app.set('view engine', 'hbs')
-app.set('views', viewsPath)
-hbs.registerPartials(partialsPath)
+// // setup handlebars engine and views location
+// app.set('view engine', 'hbs')
+// app.set('views', viewsPath)
+// hbs.registerPartials(partialsPath)
 
 // setup static directory to serve
 app.use(express.static(publicDirectoryPath))
 
-// // root
-// app.get('', (req, res) => {
-//     res.render('index')
-// })
 
+// root - get random recipes
+app.get('/randomRecipes', (req, res) => {
+    getRandomRecipes((error, data) => {
+        if (error) {
+            return res.send({
+                error: error
+            }) 
+        } 
+        res.send(data)
+    })
+})
 
-// Get recipe list
+// Get recipe list based on search query
 app.get('/recipesList', (req, res) => {
     if (!req.query.search) {
         return res.send({
