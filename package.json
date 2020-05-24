@@ -10,8 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "express": "^4.17.1",
-    "request": "^2.88.2"
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.13",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

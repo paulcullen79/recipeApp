@@ -54,6 +54,8 @@ form.addEventListener('submit', (e) => {
         .then(data => {
             if (data.error) {
                 return messageEl.textContent = data.error    
+            } else if (data.results.length === 0) {
+                return messageEl.textContent = 'Invalid search term'  
             }
             messageEl.textContent = ''
 
@@ -111,7 +113,7 @@ const renderRecipesList = (data) => {
             // Save selected recipe id to sessionStorage
             sessionStorage.setItem('currentRecipeId', id)
             // go to recipe details page
-            window.location.href = `/recipe.html?${id}`
+            window.location.href = `recipe.html?${id}`
             
         })
 

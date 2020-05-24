@@ -20,7 +20,7 @@ fetch(`/recipeDetails?id=${recipeId}`)
         .then(data => {
             if (data.error) {
                 const title = document.querySelector('h1')
-                title.textContent = data.error
+                return title.textContent = data.error
             }
             renderRecipeDetails(data)
             console.log(data)
