@@ -3,6 +3,7 @@ const express = require('express')
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 const recipeRouter = require('./routers/recipe')
+let previousSearch = ''
 
 const { getRandomRecipes, getRecipesList, getRecipeDetails } = require('./utils/spoonacular')
 
@@ -15,23 +16,9 @@ const publicDirectoryPath = (path.join(__dirname, '../public'))
 // setup static directory to serve
 app.use(express.static(publicDirectoryPath))
 
-// app.use((req, res, next) => {
-//     if (req.method === 'GET') {
-//         res.send('GET requests are disabled')
-//     } else {
-//         next()
-//     }
-// })
-
-
-
 app.use(express.json())
 app.use(userRouter)
 app.use(recipeRouter)
-
-
-
-
 
 // root - GET random recipes
 app.get('/randomRecipes', (req, res) => {
@@ -52,8 +39,9 @@ app.get('/recipesList', (req, res) => {
         return res.send({
             error: 'Please provide a search word'
         })
-    }     
-    getRecipesList(req.query.search)
+    } 
+    console.log(req.query.offset)
+    getRecipesList(req.query.search, req.query.offset)
         .then((data) => {
             res.send(data)
         })
@@ -66,7 +54,7 @@ app.get('/recipesList', (req, res) => {
 
 
 // GET recipe details by id
-app.get('/recipeDetails', (req, res) => { 
+app.get('/recipeDetails', (req, res) => {
     getRecipeDetails(req.query.id)
         .then((data) => {
             res.send(data)

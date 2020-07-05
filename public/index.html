@@ -5,29 +5,45 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="/css/styles.css" rel="stylesheet">
-        <!-- <link href="/img/weather.png" rel="icon"> -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
         <title>LetsEat</title>
       </head>
     <body>
-        <div class="container-content">
-            <header class="header">
-                <h1 class="welcome">Welcome to <span>Lets-Eat</span></h1>
-                <p class="headline">Find recipes you want to make today.</p>
-            </header>
-            
+        <nav>
+            <div class="logo">
+                <h4>Lets Eat</h4>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li> 
+                <li><a href="#">About</a></li>
+                <li class="savedRecipes"><a href="#">My Recipes</a></li>
+                <li class="login"><a href="login.html">Login</a></li> 
+                <li class="logout"><a href="index.html">Logout</a></li> 
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+        </nav>
+        <div class="container-content"> 
             <form class="form">
                 <input class="search" placeholder="Search text"> 
-                <button>Search</button>
+                <button class="button">Search</button>
             </form>
             <h3 class="message"></h3>
             <div class="container-list">
                 <div class="recipe-list"></div>    
-            </div>    
+            </div> 
+            <div>
+                <button class="button back">Back</button>
+                <button class="button next">Next</button>
+            </div> 
         </div>
     
 
 
         <script src="/js/app.js"></script>
+        <script src="/js/nav.js"></script>
     </body>
 
 </html>

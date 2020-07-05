@@ -1,0 +1,24 @@
+
+.name {
+    display: none;
+}
+
+.email {
+    display: none;
+}
+
+.password {
+    display: none;
+}
+
+.submitBtn {
+    display: none;
+}
+
+.cancelBtn {
+    display: none;
+}
+
+/* .backBtn {
+    display: none;
+} */

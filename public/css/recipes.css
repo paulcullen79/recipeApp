@@ -3,29 +3,29 @@
     padding: 0px;
     
 }
-body {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    /* font-family: Arial, Helvetica, sans-serif; */
+body { 
+    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
-    background-color: whitesmoke;
+    background-color:rgb(75, 104, 89);
+    /* background-color: whitesmoke; */
     color: rgb(63, 62, 62);
     line-height: 1.5em;
     font-size: 1.1em;
 }
 
 .container {
+    background-color:  rgb(235, 235, 235);
     width: 80%;
     margin: auto;
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
     grid-template-areas: 
     "header         header      header"
     "info-bar       info-bar    info-bar"
     "image          summary     summary"
-    "ingredients    instructions instructions"
-    ".              navbar      .";
+    "ingredients    instructions instructions";
     gap: 20px;
     
 }
@@ -65,7 +65,7 @@ body {
 }
 
 li.fa-stopwatch {
-    color:rgb(81, 197, 81);
+    color: rgb(75, 104, 89);
     margin-right: 20px;
     padding-top: 10px;
     
@@ -74,7 +74,7 @@ li.fa-stopwatch::before {
     margin-right: 10px;
 }
 li.fa-utensils {
-    color:rgb(81, 197, 81);
+    color: rgb(75, 104, 89);
     margin-right: 20px;
     padding-top: 10px;
 }
@@ -85,7 +85,7 @@ li.fa-utensils::before {
 li.fa-check-circle {
     margin-left: 20px;
     padding-top: 10px;
-    color: rgb(81, 197, 81);
+    color: rgb(75, 104, 89);
 }
 
 .image {
@@ -124,35 +124,30 @@ li.fa-check-circle {
 }
 
 li.ingredients-item:nth-child(odd) {
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(223, 221, 221);
 }
 
 .navbar {
-    grid-area: navbar;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    background-color:  rgb(235, 235, 235);
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+.button {
+    font-size: 1rem;
+    color: rgb(235, 235, 235);
+    font-family: 'Poppins', sans-serif;
+    background-color:rgb(75, 104, 89);
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 1.6px;
 }
 
-#backBtn {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    color: rgb(63, 62, 62);
-    border: 1px solid rgb(63, 62, 62);;
-    background-color: rgb(81, 197, 81);
-    border-radius: 2px;
-    /* margin: 1rem 2rem; */
-   
-}
-
-#saveBtn {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    color: rgb(63, 62, 62);
-    border: 1px solid rgb(63, 62, 62);;
-    background-color: rgb(81, 197, 81);
-    border-radius: 2px;
-    /* margin: 1rem 2rem; */
-   
+.button:focus {
+    outline: none;
 }
 
 
@@ -212,16 +207,11 @@ li.ingredients-item:nth-child(odd) {
     }
 
     .navbar {
-        grid-area: navbar;
-        display: flex;
-        justify-content: center;
-    }
-
-    #backBtn {
-        margin-right: 1rem;
-    }
-    #saveBtn {
-        margin-left: 1rem;
+        width: 100%;
+        margin: auto;
+        padding: 30px;
+        /* display: flex;
+        justify-content: space-evenly; */
     }
 }
 

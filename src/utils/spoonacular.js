@@ -8,13 +8,13 @@ const getRandomRecipes = () => {
      return rp({ url, json: true })
 }
 
-const getRecipesList = (search) => {
-    const url = `https://api.spoonacular.com/recipes/search?query=${search}&number=12&${apiKey}`
+const getRecipesList = (search, offset) => {
+    const url = `https://api.spoonacular.com/recipes/search?query=${search}&offset=${offset}&number=12&${apiKey}`
     return rp({ url, json: true })
 }
 
 const getRecipeDetails = (id, callback) => {
-    const url = `https://api.spoonacular.com/recipes/${id}/informationincludeNutrition=false&${apiKey}`
+    const url = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&${apiKey}`
      return rp({ url, json: true })
 }
 

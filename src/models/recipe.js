@@ -11,30 +11,21 @@ const recipeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // cookingTimeMinutes: {
-    //     type: Number,
-    //     required: true
-    // },
-    // servings: {
-    //     type: Number,
-    //     required: true
-    // },
-    // diets: {
-    //     vegetarian: {
-    //         type: Boolean
-    //     }
-    // },
-    // summary: {
-    //     type: String,
-    //     required: true
-    // },
-    // instructions: {
-    //     type: String
-    // },
-    // ingredients: {
-    //     type: Array,
-    //     required: true
-    // },
+    readyInMinutes: {
+        type: Number
+    },
+    servings: {
+        type: Number
+    },
+    summary: {
+        type: String
+    },
+    analyzedInstructions: {
+        type: Array
+    },
+    extendedIngredients: {
+        type: Array
+    },
     image: {
         type: String
     }

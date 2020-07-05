@@ -1,15 +1,22 @@
-
 const messageEl = document.querySelector('.message')
 const recipeListEl = document.querySelector('.recipe-list')
 const form = document.querySelector('.form')
 const input = document.querySelector('.search')
+const loginEl = document.querySelector('.login')
+const logoutEl = document.querySelector('.logout')
+const savedRecipesEl = document.querySelector('.savedRecipes')
+const nextEl = document.querySelector('.next')
+const backEl = document.querySelector('.back')
 
+let totalResults = 0
 let recipeId = ''
-
+let currentSearch = 'random'
+let offset = 0
+let searchText = ''
 
 const loadStoredData = async () => {
     let storedData = await JSON.parse(sessionStorage.data)
-    renderRecipesList(storedData)  
+    renderRecipesList(storedData) 
 }
 
 const getRandomRecipes = () => {
@@ -34,22 +41,71 @@ const getRandomRecipes = () => {
 // check for saved data in sessionStorage
 if (sessionStorage.data) {
     loadStoredData()
-}   // check for stored recipe tile id
-    else if (sessionStorage.currentId) {
-    document.getElementById(currentId).scrollIntoView()
-} 
+    .then(() => {
+        // scroll to current recipe
+        if (sessionStorage.currentRecipeId) {
+            document.getElementById('recipe_' + sessionStorage.currentRecipeId).scrollIntoView()
+        }  
+    })
+   
+}   
 else {
     getRandomRecipes()
 }
 
+// check if user is logged in (has accessToken saved)
+if (sessionStorage.accessToken) { 
+    logoutEl.style.display = 'block'
+    loginEl.style.display = 'none'
+    savedRecipesEl.style.display = 'block'
 
-// add submit event listener for search button
-form.addEventListener('submit', (e) => {
-    e.preventDefault()
-    messageEl.textContent = 'Loading...'
+} else {
+    logoutEl.style.display = 'none'
+    loginEl.style.display = 'block'
+    savedRecipesEl.style.display = 'none'
 
+}
+
+
+// get users saved recipes
+const getSavedRecipes = async () => {
+    let savedRecipes = await fetch('/recipes', {
+        method: 'GET', 
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')
+        }
+    })
+    return savedRecipes.json()
+}
+
+// add event listener for saved recipes button
+savedRecipesEl.addEventListener('click', () => {
+    getSavedRecipes()
+        .then((data) => {
+            renderRecipesList({ savedResults: data })
+        })
+})
+
+// add event listener for logout
+logoutEl.addEventListener('click', () => {
+    fetch('/users/logout', {
+        method: 'POST', 
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')
+        }
+    })
+    .then(() => {
+        sessionStorage.removeItem('accessToken', 'data')
+        location = 'http://localhost:3000/index.html'
+    })
+})
+
+const searchForRecipes = (search, number) => {
     // endpoint call for recipe list based on search text
-    fetch(`/recipesList?search=${input.value}`)
+    console.log(number)
+    fetch(`/recipesList?search=${search}&offset=${number}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
@@ -61,11 +117,43 @@ form.addEventListener('submit', (e) => {
 
             // save data object to session storage
             sessionStorage.setItem('data', JSON.stringify(data))
+            totalResults = data.totalResults
             renderRecipesList(data)
           
         })
+}
+
+// add submit event listener for search button
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    messageEl.textContent = 'Loading...'
+    currentSearch = 'userSearch'
+    searchText = input.value 
+    searchForRecipes(input.value, offset)
 }) 
 
+// event listener for next button
+nextEl.addEventListener('click', () => {
+    if (currentSearch === 'userSearch' && totalResults >= offset + 12) {
+        backEl.style.display = 'inline-block'
+        offset = offset + 12
+        searchForRecipes(searchText, offset)
+    } else {
+        backEl.style.display = 'none'
+        getRandomRecipes()
+    }  
+})
+
+// event listener for back button
+backEl.addEventListener('click', () => {
+    if (offset > 0) {
+        offset = offset - 12
+        if (offset === 0) {
+            backEl.style.display = 'none'
+        }
+        searchForRecipes(searchText, offset)
+    } 
+})
 
 // render recipes data
 const renderRecipesList = (data) => {
@@ -76,12 +164,17 @@ const renderRecipesList = (data) => {
     let results = []
     let baseUri = ''
     let randomResults = false
+    let savedResults = false
     const imageSize = '-312x231.'
 
-    if (data.recipes) {
+    // if rendering data in saved format
+    if (data.savedResults) {
+        results = data.savedResults
+        savedResults = true
+    } else if (data.recipes) {      // if rendering data in random recipe format
         results = data.recipes
         randomResults = true
-    } else {
+    } else {                        // if rendering data in search results format 
         results = data.results
         baseUri = data.baseUri
     }
@@ -120,18 +213,9 @@ const renderRecipesList = (data) => {
         // create recipe infoList items
         // Title
         const titleEl = document.createElement("li")
-        titleEl.textContent = 'Title: ' + element.title
+        // titleEl.textContent = 'Title: ' + element.title
+        titleEl.textContent = element.title
         infoList.appendChild(titleEl)
-
-        // Ready in minutes
-        const readyInMinsEl = document.createElement("li")
-        readyInMinsEl.textContent = 'Ready in: ' + element.readyInMinutes + ' minutes'
-        infoList.appendChild(readyInMinsEl)
-
-        //servings
-        const servingsEl = document.createElement("li")
-        servingsEl.textContent = 'Servings: ' + element.servings
-        infoList.appendChild(servingsEl)
 
         //image
         const recipeImgEl = document.createElement("img")
@@ -144,18 +228,16 @@ const renderRecipesList = (data) => {
             if (randomResults === true) {
                 let imageURL = element.image.replace('-556x370.', imageSize)
                 recipeImgEl.src = imageURL
+            } else if (savedResults === true) {
+                recipeImgEl.src = element.image
             } else {
+                // get image type
                 const imageType = element.image.split('.').pop() 
                 recipeImgEl.src = baseUri + id + imageSize + imageType
             }
         }
 
         recipeDivEl.appendChild(recipeImgEl)     
-    })
-            
-    
-        
-    
-    
+    })  
     
 }
