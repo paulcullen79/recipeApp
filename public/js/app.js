@@ -189,6 +189,8 @@ const renderRecipesList = (data) => {
         recipeDivEl.setAttribute('id', `recipe_${id}`)
         recipeListEl.appendChild(recipeDivEl)
 
+        
+
         // create div for ul
         const infoDivEl = document.createElement('div')
         infoDivEl.setAttribute('class', 'recipe-info')
@@ -203,8 +205,14 @@ const renderRecipesList = (data) => {
         recipeDivEl.addEventListener('click', () => {
             recipeId = recipeDivEl.id
 
+            // if recipe already saved, mark as saved in session storage
+            if (savedResults) {
+                sessionStorage.setItem('savedRecipe', true)
+            }
+
             // Save selected recipe id to sessionStorage
             sessionStorage.setItem('currentRecipeId', id)
+            
             // go to recipe details page
             window.location.href = `recipe.html?${id}`
             
@@ -237,7 +245,17 @@ const renderRecipesList = (data) => {
             }
         }
 
-        recipeDivEl.appendChild(recipeImgEl)     
+        recipeDivEl.appendChild(recipeImgEl) 
+        
+        // create remove button
+        if (savedResults) {
+            const removeBtnEl = document.createElement('button')
+            removeBtnEl.setAttribute('class', 'button')
+            removeBtnEl.setAttribute('class', 'remove-btn')
+            removeBtnEl.style.display = 'block'
+            removeBtnEl.innerText = 'Remove'
+            recipeDivEl.appendChild(removeBtnEl)
+        }
     })  
     
 }

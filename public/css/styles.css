@@ -82,10 +82,11 @@ nav {
 
 
 .search {
-    font-size: 0.8rem;
+    font-size: 1rem;
     padding: 0.5rem;
     border-radius: 5px;
     margin-right: 1.5rem;
+    letter-spacing: 1.6px;
     /* box-shadow: 2px 2px #8d8d8d; */
 }
 
@@ -98,7 +99,7 @@ nav {
     color: rgb(235, 235, 235);
     font-family: 'Poppins', sans-serif;
     background-color:rgb(75, 104, 89);
-    padding: 0.5rem;
+    padding: 0.3rem;
     border-radius: 5px;
     cursor: pointer;
     letter-spacing: 1.6px;
@@ -124,12 +125,15 @@ container-list {
 }
 
 .recipe-div {
+
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
    
     background-color: rgb(255, 255, 255);
     border-radius: 3px;
     
-    text-align: center;
+    justify-content: space-evenly;
     margin: 2rem;
     cursor: pointer;
 }
@@ -148,6 +152,26 @@ container-list {
 .recipe-img {
     border-radius: 5px; 
     max-width: 100%; 
+}
+
+.remove-btn {
+    color: rgb(160, 160, 160);
+    background-color: rgb(245, 245, 245);
+    margin-top: 10px;
+    border: 1px solid rgb(235, 235, 235);
+    border-radius: 5px;
+    padding: 0.5em;
+    align-self: center;
+    cursor: pointer;
+    letter-spacing: 1.3px;
+}
+.remove-btn:hover {
+    border: 1px solid rgb(63, 62, 62);
+
+}
+.remove-btn:focus {
+    outline: none;
+    background-color: rgb(255, 255, 255);
 }
 
 .back {

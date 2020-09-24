@@ -1,11 +1,4 @@
-// const recipeRouter = require('../../src/routers/recipe')
-// const userRouter = require('../../src/routers/user')
-// const express = require('express')
-// require('../../src/db/mongoose')
 
-// app.use(express.json())
-// app.use(userRouter)
-// app.use(recipeRouter)
 
 const imageEl = document.querySelector('.image')
 const titleEl = document.querySelector('.header h1')
@@ -32,8 +25,7 @@ fetch(`/recipeDetails?id=${recipeId}`)
             }
             recipeData = data
             renderRecipeDetails(data)
-            console.log(data)
-            console.log(recipeData)
+
         })
 
 // render recipe details 
@@ -93,12 +85,13 @@ const renderRecipeDetails = (data) => {
 }
 
 // nav buttons
+// back button
 backEl.addEventListener('click', () => {
     sessionStorage.removeItem('currentRecipeId')
-    location.href = 'http://localhost:3000/index.html' 
+    history.back() 
 })
 
-// 
+// save recipe data to database
 async function saveData(url, data) {
     const response = await fetch(url, {
         method: 'POST', 
@@ -110,12 +103,19 @@ async function saveData(url, data) {
     })
     return response.json(); // parses JSON response into native JavaScript objects
 }
-  
+
+// saved button - check if recipe already saved
+if (sessionStorage.savedRecipe) {
+    saveEl.style.display = 'none'
+    sessionStorage.removeItem('savedRecipe')
+}
 //add event listener for save button 
 saveEl.addEventListener('click', async () => {
     try {
         recipeData.image = recipeData.image.replace('556x370', '312x231')
         const response =  await saveData('http://localhost:3000/recipes', { 
+            saved: true,
+            id: recipeData.id,
             title: recipeData.title, 
             readyInMinutes: recipeData.readyInMinutes,
             servings: recipeData.servings,

@@ -9,6 +9,8 @@ const inputDiv = document.querySelector('.inputDiv')
 const submitEl = document.querySelector('.submitBtn')
 const cancelEl = document.querySelector('.cancelBtn')
 const backEl = document.querySelector('.backBtn')
+const headerH1El = document.querySelector('.header-h1')
+const formEl = document.querySelector('.form')
 
 
 let signupSelected = false
@@ -39,7 +41,7 @@ async function loginUser(url, data) {
     return response.json() // parses JSON response into native JavaScript objects
 }
 
-// add event listener to signup button
+// add event listener to register button
 signupEl.addEventListener('click', (e) => {
     e.preventDefault()
     signupSelected = true
@@ -51,6 +53,7 @@ signupEl.addEventListener('click', (e) => {
     loginEl.style.display = 'none'
     signupEl.style.display = 'none'
     backEl.style.display = 'none'
+    headerH1El.textContent = 'Register'
 })
 
 // add event listener to login button
@@ -63,6 +66,8 @@ loginEl.addEventListener('click', (e) => {
     loginEl.style.display = 'none'
     signupEl.style.display = 'none'
     backEl.style.display = 'none'
+    headerH1El.textContent = 'User Login'
+    // formEl.style.display = 'space-between'
 })
 
 // add event listener to back button
