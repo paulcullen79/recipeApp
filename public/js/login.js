@@ -28,7 +28,7 @@ async function createUser(url, data) {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-// create new user
+// login existing user
 async function loginUser(url, data) {
     // Default options are marked with *
     const response = await fetch(url, {

@@ -28,7 +28,7 @@ app.get('/randomRecipes', (req, res) => {
         })
         .catch((error) => {
             res.send({
-                error: error
+                error: 'Sorry, something went wrong!'
             })
         })
 })
@@ -40,14 +40,13 @@ app.get('/recipesList', (req, res) => {
             error: 'Please provide a search word'
         })
     } 
-    console.log(req.query.offset)
     getRecipesList(req.query.search, req.query.offset)
         .then((data) => {
             res.send(data)
         })
         .catch((error) => {
             res.send({
-                error: 'Something went wrong!'
+                error: 'Sorry, something went wrong!'
             })
         })
 })
