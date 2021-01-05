@@ -20,7 +20,6 @@ const recipes = ( async function() {
     // back button
     const backEl = document.querySelector('.backBtn')
     backEl.addEventListener('click', () => {
-        // sessionStorage.removeItem('currentRecipeId')
         history.back() 
     })
 
