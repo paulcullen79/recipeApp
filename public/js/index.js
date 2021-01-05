@@ -1,6 +1,8 @@
-import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList } from './utils/recipeApiFucntions.js'
+import { Recipes } from './utils/recipesModule.js'
 
-(async function app() {
+
+(async function () {
+    let recipes = new Recipes
     // DOM queries
     const messageEl = document.querySelector('.message')
     const form = document.querySelector('.form')
@@ -13,11 +15,6 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
     nextEl.style.display = 'none'
     const backEl = document.querySelector('.back')
     backEl.style.display = 'none'
-
-    let totalResults = 0
-    let currentSearch = 'random'
-    let offset = 0
-    let searchText = ''
     
     // check if user is logged in (has accessToken saved)
     // DOM config
@@ -36,7 +33,7 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
     
     if (sessionStorage.data ) {
         const storedData = await JSON.parse(sessionStorage.data)
-        renderRecipesList(storedData) 
+        recipes.renderRecipesList(storedData) 
         document.getElementById('recipe_' + sessionStorage.currentRecipeId).scrollIntoView()
 
         sessionStorage.removeItem('data')
@@ -44,20 +41,22 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
         nextEl.style.display = 'inline-block' 
     } else {
         try { 
-            messageEl.textContent = 'Loading...'
+            messageEl.innerHTML = 'Loading...'
             // get random selection of recipes and render
-            const data = await getRandomRecipes()
-            console.log(data)
-            if (data.error) {
-                messageEl.textContent = data.error    
+            const data = await recipes.getRandomRecipes()
+            const formattedData = recipes.formatResults(data)
+            
+    
+            if (formattedData.error) {
+                messageEl.innerHTML = formattedData.error    
             } else {
-                messageEl.textContent = 'A random selection. Please enter a search term.'
-                renderRecipesList(data)
+                messageEl.innerHTML = 'Here is a random selection of recipes.<br>Please enter a search term.'
+                recipes.renderRecipesList(formattedData)
                 nextEl.style.display = 'inline-block' 
             }
             
         } catch(error){
-            messageEl.textContent = error 
+            messageEl.innerHTML = error 
         }
         
     }
@@ -65,37 +64,37 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
 
     // event listener for next button
     nextEl.addEventListener('click', async () => {
-        if (currentSearch === 'userSearch' && totalResults >= offset + 12) {
+        if (recipes.currentSearch === 'userSearch' && recipes.totalResults >= recipes.offset + 12) {
             backEl.style.display = 'inline-block'
-            offset = offset + 12
+            recipes.offset = recipes.offset + 12
             try {
-                messageEl.textContent = 'Loading...'
-                const data = await searchForRecipes(searchText, offset)
+                messageEl.innerHTML = 'Loading...'
+                const data = await recipes.searchForRecipes(recipes.searchText, recipes.offset)
                 if (data.error) {
                      throw data.error    
-                } else if (totalResults - offset < 12) {
+                } else if (recipes.totalResults - recipes.offset < 12) {
                     throw 'Out of recipes for this search'  
                 } else {
-                    messageEl.textContent = ''
-                    renderRecipesList(data)
+                    messageEl.innerHTML = ''
+                    recipes.renderRecipesList(recipes.formatResults(data))
                 }         
             } catch(error) {
-                messageEl.textContent = error
+                messageEl.innerHTML = error
             }
             
         } else {
             try {
-                messageEl.textContent = 'Loading...'
+                messageEl.innerHTML = 'Loading...'
                 backEl.style.display = 'none'
-                const data = await getRandomRecipes()
+                const data = await recipes.getRandomRecipes()
                 if (data.error) {
                     throw data.error    
                } else {
-                   messageEl.textContent = 'A random selection. Please enter a search term.'
-                   renderRecipesList(data)
+                   messageEl.innerHTML = 'More random recipes. Please enter a search term.'
+                   recipes.renderRecipesList(recipes.formatResults(data))
                }   
             } catch(error) {
-                messageEl.textContent = error
+                messageEl.innerHTML = error
             }
             
         }  
@@ -103,13 +102,17 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
     
     // add event listener for my recipes button
     myRecipesEl.addEventListener('click', () => {
-        getMyRecipes()
+        recipes.getMyRecipes()
             .then((data) => {
-                renderRecipesList({ savedResults: data })
+                recipes.renderRecipesList(data)
+                nextEl.style.display = 'none'
+                messageEl.innerHTML = 'Saved recipes.'
             })
+
+            
     })
     
-    // add event listener for logout
+    // event listener for logout button
     logoutEl.addEventListener('click', () => {
         fetch('/users/logout', {
             method: 'POST', 
@@ -128,24 +131,28 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
     form.addEventListener('submit', async (e) => {
         try {
             e.preventDefault()
-            messageEl.textContent = 'Loading...'
+            messageEl.innerHTML = 'Loading...'
             
-            currentSearch = 'userSearch'
-            searchText = input.value 
+            recipes.currentSearch = 'userSearch'
+            recipes.searchText = input.value 
             
-            let data = await searchForRecipes(input.value, offset)
-            totalResults = data.totalResults
+            let data = await recipes.searchForRecipes(input.value, recipes.offset)
+            recipes.totalResults = data.totalResults
             if (data.error) {
                 throw data.error    
             } else if (data.results.length === 0) {
                throw 'Invalid search term'  
             } else {
-               messageEl.textContent = ''
-               renderRecipesList(data)
+               messageEl.innerHTML = ''
+               const fmd = recipes.formatResults(data)
+               recipes.renderRecipesList(fmd)
                nextEl.style.display = 'inline-block'
-            }    
+            }
+            
+            
+
         } catch(error) {
-            messageEl.textContent = error  
+            messageEl.innerHTML = error  
         }
         
     }) 
@@ -155,19 +162,21 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
     // event listener for back button
     backEl.addEventListener('click', async () => {
         try {
-            if (offset > 0) {
-                offset = offset - 12
-                if (offset === 0) {
+            if (recipes.offset > 0) {
+                recipes.offset = recipes.offset - 12
+                if (recipes.offset === 0) {
                     backEl.style.display = 'none'
                 }
-                const data = await searchForRecipes(searchText, offset)
+                const data = await searchForRecipes(recipes.searchText, recipes.offset)
                 renderRecipesList(data)
             } 
         } catch(error) {
-            messageEl.textContent = data.error   
+            messageEl.innerHTML = data.error   
         }
         
     })
+
+    
 })()
 
 
