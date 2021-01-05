@@ -7,6 +7,10 @@ const recipeSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    saved: {
+        type: Boolean,
+        required: true
+    },
     id: {
         type: Number,
         required: true,
@@ -33,6 +37,7 @@ const recipeSchema = new mongoose.Schema({
     image: {
         type: String
     }
+    
 }, {
     timestamps: true
 })
