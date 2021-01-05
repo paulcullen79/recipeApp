@@ -73,15 +73,15 @@ loginEl.addEventListener('click', (e) => {
 // add event listener to back button
 backEl.addEventListener('click', () => {
     if (!sessionStorage.currentRecipeId) {
-        location.href = 'http://localhost:3000/index.html'
+        location.href = '/index.html'
     } else {
-        location.href = `http://localhost:3000/recipe.html?${sessionStorage.currentRecipeId}`
+        location.href = `/recipe.html?${sessionStorage.currentRecipeId}`
     }   
 })
 
 // add event listener to cancel button
 cancelEl.addEventListener('click', () => {
-    location.href = 'http://localhost:3000/login.html'
+    location.href = '/login.html'
 })
 
 // add event listener to submit button
@@ -89,7 +89,7 @@ submitEl.addEventListener('click', async (e) => {
     e.preventDefault()
     // submit signup data
     if (signupSelected === true) {
-        const response = await createUser('http://localhost:3000/users', {
+        const response = await createUser('/users', {
             name: nameEl.value,
             email: emailEl.value,
             password: passwordEl.value
@@ -104,7 +104,7 @@ submitEl.addEventListener('click', async (e) => {
         }
     // submit login data    
     } else {
-        const response = await loginUser('http://localhost:3000/users/login', {
+        const response = await loginUser('localhost:3000/users/login', {
             email: emailEl.value,
             password: passwordEl.value
         })

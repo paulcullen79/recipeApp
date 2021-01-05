@@ -120,7 +120,7 @@ import { getRandomRecipes, searchForRecipes, getSavedRecipes, renderRecipesList 
         })
         .then(() => {
             sessionStorage.removeItem('accessToken', 'data')
-            location = 'http://localhost:3000/index.html'
+            location = 'localhost:3000/index.html'
         })
     })
      

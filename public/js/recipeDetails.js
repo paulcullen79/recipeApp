@@ -6,9 +6,9 @@ const recipes = ( async function() {
     saveEl.addEventListener('click', async () => {
         try { 
             const formattedData =  formatRecipeData(recipeData)
-            const response = await postToDatabase('http://localhost:3000/recipes', formattedData)
+            const response = await postToDatabase('localhost:3000/recipes', formattedData)
             if (response.status === 401) {
-                location.href = 'http://localhost:3000/login.html'
+                location.href = 'localhost:3000/login.html'
             } else {
                 alert('Saved successfully!')
             }
