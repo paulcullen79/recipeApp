@@ -123,7 +123,7 @@ import { Recipes } from './utils/recipesModule.js'
         })
         .then(() => {
             sessionStorage.removeItem('accessToken', 'data')
-            location = 'localhost:3000/index.html'
+            location = 'http://localhost:3000/index.html'
         })
     })
      

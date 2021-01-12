@@ -104,7 +104,7 @@ submitEl.addEventListener('click', async (e) => {
         }
     // submit login data    
     } else {
-        const response = await loginUser('localhost:3000/users/login', {
+        const response = await loginUser('http://localhost:3000/users/login', {
             email: emailEl.value,
             password: passwordEl.value
         })
@@ -112,7 +112,7 @@ submitEl.addEventListener('click', async (e) => {
             alert('Error: Failed to login')
         } else {
             sessionStorage.setItem('accessToken', response.token)
-            alert(`Welcome back`)
+            alert(`Welcome back ${response.user.name}`)
             window.history.back()
         }
     }

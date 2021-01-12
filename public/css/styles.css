@@ -20,8 +20,6 @@ body {
    
 }
 
-
-
 .container-content {
     text-align: center;
     background-color:  rgb(235, 235, 235);
@@ -33,11 +31,10 @@ nav {
     justify-content: space-around;
     align-items: center;
     min-height: 10vh;
-    background-color:rgb(75, 104, 89);
-    /* background-color: rgb(104, 79, 112); */
-    animation: nav-slide-down 0.5s ease-in;
-
-
+    /* background-color:rgb(75, 104, 89); */
+    background: linear-gradient(to bottom right,rgb(75, 104, 89) 0%, #1c461c 100%);
+   
+    animation: nav-slide-down 0.5s ease-out;
 }
 
 @keyframes nav-slide-down {
@@ -130,7 +127,8 @@ nav {
     font-size: 1rem;
     color: rgb(235, 235, 235);
     font-family: 'Poppins', sans-serif;
-    background-color:rgb(75, 104, 89);
+    /* background-color:rgb(75, 104, 89); */
+    background: linear-gradient(to bottom right,rgb(75, 104, 89) 0%, #1c461c 100%);
     padding: 0.3rem;
     border-radius: 5px;
     cursor: pointer;
@@ -142,6 +140,7 @@ nav {
 }
 
 .message {
+    color:rgb(112, 111, 111);
     min-height: 50px;
 }
 
@@ -169,7 +168,7 @@ container-list {
     justify-content: space-evenly;
     margin: 2rem;
     cursor: pointer;
-    animation: slide-up 1.5s cubic-bezier(0.42, 0, 0.01, 1.06) forwards;
+    animation: slide-up 1.3s cubic-bezier(0.42, 0, 0.01, 1.06) forwards;
     transform: translateY(500%)
     
 }
