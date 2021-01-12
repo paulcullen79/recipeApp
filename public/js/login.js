@@ -104,7 +104,7 @@ submitEl.addEventListener('click', async (e) => {
         }
     // submit login data    
     } else {
-        const response = await loginUser('http://localhost:3000/users/login', {
+        const response = await loginUser(`${process.env.URL}/users/login`, {
             email: emailEl.value,
             password: passwordEl.value
         })
