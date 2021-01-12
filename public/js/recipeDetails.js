@@ -8,7 +8,7 @@ const recipes = ( async function() {
             const formattedData =  formatRecipeData(recipeData)
             const response = await postToDatabase(`${process.env.URL}/recipes`, formattedData)
             if (response.status === 401) {
-                location.href = `${process.env.URL}/login.html`
+                location.href = '/login.html'
             } else {
                 alert('Saved successfully!')
             }
