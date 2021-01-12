@@ -6,7 +6,7 @@ const recipes = ( async function() {
     saveEl.addEventListener('click', async () => {
         try { 
             const formattedData =  formatRecipeData(recipeData)
-            const response = await postToDatabase(`${process.env.URL}/recipes`, formattedData)
+            const response = await postToDatabase('/recipes', formattedData)
             if (response.status === 401) {
                 location.href = '/login.html'
             } else {
