@@ -11,6 +11,7 @@ import { Recipes } from './utils/recipesModule.js'
     const loginEl = document.querySelector('.login')
     const logoutEl = document.querySelector('.logout')
     const myRecipesEl = document.querySelector('.myRecipes')
+    
     const nextEl = document.querySelector('.next')
     nextEl.style.display = 'none'
     const backEl = document.querySelector('.back')
@@ -77,6 +78,7 @@ import { Recipes } from './utils/recipesModule.js'
                 } else {
                     messageEl.innerHTML = ''
                     recipes.renderRecipesList(recipes.formatResults(data))
+                    window.scrollTo(0,0)
                 }         
             } catch(error) {
                 messageEl.innerHTML = error
@@ -92,6 +94,7 @@ import { Recipes } from './utils/recipesModule.js'
                } else {
                    messageEl.innerHTML = 'More random recipes. Please enter a search term.'
                    recipes.renderRecipesList(recipes.formatResults(data))
+                   window.scrollTo(0,0)
                }   
             } catch(error) {
                 messageEl.innerHTML = error
@@ -105,6 +108,9 @@ import { Recipes } from './utils/recipesModule.js'
         recipes.getMyRecipes()
             .then((data) => {
                 recipes.renderRecipesList(data)
+                myRecipesTag.classList.add('currentPage')
+                homeTag.classList.remove('currentPage')
+                
                 nextEl.style.display = 'none'
                 messageEl.innerHTML = 'Saved recipes.'
             })
@@ -121,10 +127,7 @@ import { Recipes } from './utils/recipesModule.js'
             'Authorization': 'Bearer ' + sessionStorage.getItem('accessToken')
             }
         })
-        .then(() => {
-            sessionStorage.removeItem('accessToken', 'data')
-            location = '/index.html'
-        })
+        sessionStorage.removeItem('accessToken', 'data')
     })
      
     // event listener for search button
@@ -167,8 +170,9 @@ import { Recipes } from './utils/recipesModule.js'
                 if (recipes.offset === 0) {
                     backEl.style.display = 'none'
                 }
-                const data = await searchForRecipes(recipes.searchText, recipes.offset)
-                renderRecipesList(data)
+                const data = await recipes.searchForRecipes(recipes.searchText, recipes.offset)
+                recipes.renderRecipesList(recipes.formatResults(data))
+                window.scrollTo(0,0)
             } 
         } catch(error) {
             messageEl.innerHTML = data.error   
