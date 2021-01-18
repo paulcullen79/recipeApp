@@ -152,15 +152,11 @@ import { Recipes } from './utils/recipesModule.js'
                nextEl.style.display = 'inline-block'
             }
             
-            
-
         } catch(error) {
             messageEl.innerHTML = error  
         }
         
     }) 
-    
-    
     
     // event listener for back button
     backEl.addEventListener('click', async () => {

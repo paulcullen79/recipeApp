@@ -113,33 +113,10 @@ nav {
    
 }
 
-@keyframes navLinkFade {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-}
-
-.toggle .line1{
-    transform: rotate(-45deg) translate(-5px, 6px);
-}
-.toggle .line2{
-    opacity: 0;
-}
-.toggle .line3{
-    transform: rotate(45deg) translate(-5px, -6px);
-}
-
 .form {
     margin-top: 2rem;
     margin-bottom: 2rem;
-    margin-right: 0;
-    
-    
+    margin-right: 0;  
 }
 
 .search {
@@ -213,11 +190,16 @@ nav {
     
 }
 
+.nav-active {
+    transform: translateX(0%);
+   
+}
+
 
 /******************************************************/
 
 
- @media screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
     .nav-links {
         display: flex;
         width: 45%;
@@ -228,7 +210,21 @@ nav {
 @media screen and (max-width: 768px) {
     body {
         overflow-x: hidden;
+        font-size: 1rem;
     }
+
+    .container-content {  
+        margin: 0 1rem 0 1rem;  
+    }
+
+    .container {
+        margin: 1rem 0 1rem 0;
+    }
+
+    .bullet-points {
+        max-width: 80%;
+    }
+
     .nav-links {
         position: absolute;
         right: 0px;
@@ -253,11 +249,36 @@ nav {
         opacity: 0;
     }
 
-    .bullet-points {
-        max-width: 80%;
+    .nav-active {
+        transform: translateX(0%);
+       
+    }
+    
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+    
+    .toggle .line1{
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2{
+        opacity: 0;
+    }
+    .toggle .line3{
+        transform: rotate(45deg) translate(-5px, -6px);
     }
     
 }
+
+
+
 
 
 

@@ -114,6 +114,7 @@ nav {
     margin: 5px;
     transition: 0.5s ease
 }
+
 .form {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -187,13 +188,6 @@ container-list {
     transform: translateY(500%)
     
 }
-
-.recipe-div:hover {
-    /* box-shadow: 0px 0px 10px 5px rgb(131, 160, 131); */
-    box-shadow: 0px 0px 10px 5px rgb(191, 204, 188);
-    transition: .5s ease;
-}
-
 @keyframes slide-up{
     0% {
         transform: translateY(500%)
@@ -201,6 +195,12 @@ container-list {
     100% {
         transform: translateY(0%)
     }
+}
+
+.recipe-div:hover {
+    /* box-shadow: 0px 0px 10px 5px rgb(131, 160, 131); */
+    box-shadow: 0px 0px 10px 5px rgb(191, 204, 188);
+    transition: .5s ease;
 }
 
 .recipe-info {
@@ -247,7 +247,7 @@ container-list {
 /******************************************************/
 
 
- @media screen and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
     .nav-links {
         display: flex;
         width: 45%;
@@ -258,10 +258,10 @@ container-list {
 @media screen and (max-width: 768px) {
     body {
         overflow-x: hidden;
+        font-size: 1rem;
     }
 
-    .container-content {
-        
+    .container-content {  
         margin: 0 1rem 0 1rem;  
     }
 
@@ -271,8 +271,7 @@ container-list {
     }
 
     .search {
-        margin: 1rem;
-        
+        margin: 1rem; 
     }
 
     .recipe-div {
@@ -302,32 +301,34 @@ container-list {
         animation: fade-in 1s cubic-bezier(0.42, 0, 0.63, 1.2) 0.5s forwards; 
         opacity: 0;
     }
+
+    .nav-active {
+        transform: translateX(0%);
+       
+    }
+    
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+    
+    .toggle .line1{
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2{
+        opacity: 0;
+    }
+    .toggle .line3{
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
     
 }
 
-.nav-active {
-    transform: translateX(0%);
-   
-}
 
-@keyframes navLinkFade {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-}
-
-.toggle .line1{
-    transform: rotate(-45deg) translate(-5px, 6px);
-}
-.toggle .line2{
-    opacity: 0;
-}
-.toggle .line3{
-    transform: rotate(45deg) translate(-5px, -6px);
-}
 

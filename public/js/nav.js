@@ -20,10 +20,3 @@ const navSlide = () => {
     
 }
 navSlide()
-
-const currentPage = () => {
-    const pathname = document.location.pathname.split('/')
-    const selectedPage = pathname[1].split('.')
-    
-}
-currentPage()
