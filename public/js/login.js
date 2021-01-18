@@ -72,10 +72,10 @@ loginEl.addEventListener('click', (e) => {
 
 // add event listener to back button
 backEl.addEventListener('click', () => {
-    if (!sessionStorage.currentRecipeId) {
+    if (!sessionStorage.currentRecipeId) { 
         location.href = '/index.html'
     } else {
-        location.href = `/recipe.html?${sessionStorage.currentRecipeId}`
+        location.href = `/recipeDetails.html?${sessionStorage.currentRecipeId}`
     }   
 })
 

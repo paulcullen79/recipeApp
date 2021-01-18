@@ -20,7 +20,7 @@ const recipes = ( async function() {
     // back button
     const backEl = document.querySelector('.backBtn')
     backEl.addEventListener('click', () => {
-        history.back() 
+        location.href = `/index.html?${sessionStorage.currentRecipeId}`
     })
 
     // ***** call functions and render recipe details *****
