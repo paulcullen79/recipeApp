@@ -118,8 +118,9 @@ nav {
     margin-top: 2rem;
     margin-bottom: 2rem;
     margin-right: 0;
-    
-    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 
@@ -129,7 +130,7 @@ nav {
     border-radius: 5px;
     margin-right: 1.5rem;
     letter-spacing: 1.6px;
-    /* box-shadow: 2px 2px #8d8d8d; */
+    
 }
 
 .search:focus {
@@ -258,6 +259,26 @@ container-list {
     body {
         overflow-x: hidden;
     }
+
+    .container-content {
+        
+        margin: 0 1rem 0 1rem;  
+    }
+
+    .form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search {
+        margin: 1rem;
+        
+    }
+
+    .recipe-div {
+        margin: 1rem 0 1rem 0;
+    }
+
     .nav-links {
         position: absolute;
         right: 0px;
